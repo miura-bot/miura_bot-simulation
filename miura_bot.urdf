@@ -1,0 +1,31 @@
+<link name="base_link">
+      <visual>
+        <origin rpy="0.0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package:///miura_bot/urdf/mori-design2.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0.0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <mesh filename="package:///miura_bot/urdf/mori-design2.dae"/> #will make a lower poly version of this later
+        </geometry>
+      </collision>
+</link>
+
+<joint name="joint1" type="revolute">
+        <parent link="base_link"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> #uhhhhhh idk what the effort and velocity values are for our robot but i think +/- 90 degrees is
+                                                                             #right for the upper and lower limits right?
+        <origin rpy="0 0 0" xyz="129.904 75 5"/>      #129.904 ~= 75*3^(1/2), 5 is half the robot thickness
+</joint>
+   
+<joint name="joint2" type="revolute">
+       <parent link="base_link"/>
+        <parent link="base_link"/>
+        <axis xyz="0.866 0.5 0"/>
+        <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> #uhhhhhh idk what the effort and velocity values are for our robot but i think +/- 90 degrees is
+                                                                             #right for the upper and lower limits right?
+        <origin rpy="0 0 0" xyz="0 150 5"/>      #5 is half the robot thickness 
+</joint>
