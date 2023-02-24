@@ -10,13 +10,13 @@ client = p.connect(p.GUI)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
 # set gravity and ground
-p.setGravity(0, 0, -9.81)
+# p.setGravity(0, 0, -9.81)
 p.loadURDF("plane.urdf", [0, 0, 0], [0, 0, 0, 1])
 
 # load parallelogram bot urdf
-start_pos = [0, 0, 0.01]
+start_pos = [0, 0, 1]
 start_orientation = p.getQuaternionFromEuler([0., 0., 0.])
-urdf = "wheel.urdf"
+urdf = "wheel_with_motor.urdf"
 botId = p.loadURDF(urdf, start_pos, start_orientation, globalScaling=0.01)
 
 for i in range(p.getNumJoints(botId)):
