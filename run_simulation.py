@@ -23,21 +23,23 @@ for i in range(p.getNumJoints(botId)):
   print(p.getJointInfo(botId, i))
 
 # set up wheel sliders
-targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -10, 10, 0)
-targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -10, 10, 0)
+targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -100, 100, 0)
+targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -100, 100, 0)
 
 # run simulation
 while True:
     
     # set wheel velocities
+    targetVelocity = p.readUserDebugParameter(targetVelocitySlider)
     p.setJointMotorControlArray(bodyIndex=botId, 
                                 jointIndices=[0, 1], 
                                 controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [p.readUserDebugParameter(targetVelocitySlider), p.readUserDebugParameter(targetVelocitySlider)])
+                                targetVelocities = [targetVelocity, targetVelocity])
+    targetVelocity2 = p.readUserDebugParameter(targetVelocitySlider2)
     p.setJointMotorControlArray(bodyIndex=botId, 
                                 jointIndices=[2, 3], 
                                 controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [p.readUserDebugParameter(targetVelocitySlider2), p.readUserDebugParameter(targetVelocitySlider2)])
+                                targetVelocities = [targetVelocity2, targetVelocity2])
 
     # step
     p.stepSimulation()
