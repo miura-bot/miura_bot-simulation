@@ -23,12 +23,14 @@
 
   <link name="wheel1">
     <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -37,12 +39,14 @@
 
   <link name="wheel2">
     <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -51,12 +55,14 @@
 
   <link name="wheel3">
     <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -65,12 +71,14 @@
 
   <link name="wheel4">
     <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
