@@ -1,69 +1,113 @@
 <robot name="miura_bot">
-<material name="blue">
-          <color rbga = "0 0 0.8 1"/>
-</material>
-<link name="base_link">
-      <visual>
-        <origin rpy="0.0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <mesh filename="C:/Users/bamlab/Desktop/liza/miura_bot/urdf/mori-design-2.stl" scale="0.01 0.01 0.01"/>
-        </geometry>
-      </visual>
-      <collision>
-        <origin rpy="0.0 0 0" xyz="0 0 0"/>
-        <geometry>
-          <mesh filename="C:/Users/bamlab/Desktop/liza/miura_bot/urdf/mori-design-2.stl" scale="0.01 0.01 0.01"/> #will make a lower poly version of this later
-        </geometry>
-      </collision>
-</link>
 
-<link name="wheel1">
-      <visual>
-        <origin rpy="0.0 0 0" xyz="1.29904 0.75 0.05"/>
-        <geometry>
-          <mesh filename="C:/Users/bamlab/Desktop/liza/miura_bot/urdf/wheel.stl" scale="0.01 0.01 0.01"/>
-        </geometry>
-        <material name="blue"/>
-      </visual>
-      <collision>
-        <origin rpy="0.0 0 0" xyz="1.29904 0.75 0.05"/>
-        <geometry>
-          <mesh filename="C:/Users/bamlab/Desktop/liza/miura_bot/urdf/wheel.stl" scale="0.01 0.01 0.01"/> #will make a lower poly version of this later
-        </geometry>
-      </collision>
-</link>
+  <!-- Materials -->
+  <material name="blue">
+    <color rgba = "0 0 0.8 1"/>
+  </material>
 
-<link name="wheel2">
-      <visual>
-        <origin rpy="0.0 0 0" xyz="0 1.50 0.05"/>
-        <geometry>
-          <mesh filename="C:/Users/bamlab/Desktop/liza/miura_bot/urdf/wheel.stl" /> #scale="0.01 0.01 0.01"/>
-        </geometry>
-        <material name="blue"/>
-      </visual>
-      <collision>
-        <origin rpy="0.0 0 0" xyz="0 1.50 0.05"/>
-        <geometry>
-          <mesh filename="C:/Users/bamlab/Desktop/liza/miura_bot/urdf/wheel.stl" scale="0.01 0.01 0.01"/> #will make a lower poly version of this later
-        </geometry>
-      </collision>
-</link>
+  <!-- Links -->
+  <link name="base_link">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
 
-<joint name="joint1" type="revolute">
-        <parent link="base_link"/>
-        <child link="wheel1"/>
-        <axis xyz="0 1 0"/>
-        <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> #uhhhhhh idk what the effort and velocity values are for our robot but i think +/- 90 degrees is
-                                                                             #right for the upper and lower limits right?
-        <origin rpy="0 0 0" xyz="129.904 75 5"/>      #129.904 ~= 75*3^(1/2), 5 is half the robot thickness
-</joint>
-   
-<joint name="joint2" type="revolute">
-        <parent link="base_link"/>
-        <child link="wheel2"/>
-        <axis xyz="0.866 0.5 0"/>
-        <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> #uhhhhhh idk what the effort and velocity values are for our robot but i think +/- 90 degrees is
-                                                                             #right for the upper and lower limits right?
-        <origin rpy="0 0 0" xyz="0 150 5"/>      #5 is half the robot thickness 
-</joint>
+  <link name="wheel1">
+    <visual>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wheel2">
+    <visual>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wheel3">
+    <visual>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="wheel4">
+    <visual>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Joints -->
+  <joint name="joint1" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel1"/>
+    <axis xyz="0 1 0"/>
+    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
+    <origin rpy="0 0 0" xyz="0 103 0"/>
+  </joint>
+    
+  <joint name="joint2" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel2"/>
+    <axis xyz="0 1 0"/>
+    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
+    <origin rpy="0 0 0" xyz="130 118 0"/>
+  </joint>
+
+  <joint name="joint3" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel3"/>
+    <axis xyz="0 1 0"/>
+    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
+    <origin rpy="0 0 2.0944" xyz="52 17 0"/>
+  </joint>
+
+  <joint name="joint4" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel4"/>
+    <axis xyz="0 1 0"/>
+    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
+    <origin rpy="0 0 2.0944" xyz="105 196 0"/>
+  </joint>
+
 </robot>
