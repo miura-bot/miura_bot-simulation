@@ -5,7 +5,7 @@
     <color rgba = "0 0 0.8 1"/>
   </material>
 
-  <!-- Links -->
+  <!-- base_link -->
   <link name="base_link">
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
@@ -21,6 +21,7 @@
     </collision>
   </link>
 
+  <!-- wheel1 -->
   <link name="wheel1">
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
@@ -37,6 +38,15 @@
     </collision>
   </link>
 
+  <joint name="joint1" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel1"/>
+    <axis xyz="0 1 0"/>
+    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
+    <origin rpy="0 0 0" xyz="0 103 0"/>
+  </joint>
+
+  <!-- wheel2 -->
   <link name="wheel2">
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
@@ -53,6 +63,15 @@
     </collision>
   </link>
 
+  <joint name="joint2" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel2"/>
+    <axis xyz="0 1 0"/>
+    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
+    <origin rpy="0 0 0" xyz="130 118 0"/>
+  </joint>
+
+  <!-- wheel3 -->
   <link name="wheel3">
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
@@ -69,6 +88,15 @@
     </collision>
   </link>
 
+  <joint name="joint3" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel3"/>
+    <axis xyz="0 1 0"/>
+    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
+    <origin rpy="0 0 2.0944" xyz="52 17 0"/>
+  </joint>
+
+  <!-- wheel4 -->
   <link name="wheel4">
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
@@ -84,31 +112,6 @@
       </geometry>
     </collision>
   </link>
-
-  <!-- Joints -->
-  <joint name="joint1" type="continuous">
-    <parent link="base_link"/>
-    <child link="wheel1"/>
-    <axis xyz="0 1 0"/>
-    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
-    <origin rpy="0 0 0" xyz="0 103 0"/>
-  </joint>
-    
-  <joint name="joint2" type="continuous">
-    <parent link="base_link"/>
-    <child link="wheel2"/>
-    <axis xyz="0 1 0"/>
-    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
-    <origin rpy="0 0 0" xyz="130 118 0"/>
-  </joint>
-
-  <joint name="joint3" type="continuous">
-    <parent link="base_link"/>
-    <child link="wheel3"/>
-    <axis xyz="0 1 0"/>
-    <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
-    <origin rpy="0 0 2.0944" xyz="52 17 0"/>
-  </joint>
 
   <joint name="joint4" type="continuous">
     <parent link="base_link"/>
