@@ -24,14 +24,14 @@
   <!-- wheel1 -->
   <link name="wheel1">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -43,20 +43,20 @@
     <child link="wheel1"/>
     <axis xyz="0 1 0"/>
     <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
-    <origin rpy="0 0 0" xyz="0 103 0"/>
+    <origin rpy="0 0 0" xyz="5 103 8"/>
   </joint>
 
   <!-- wheel2 -->
   <link name="wheel2">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -68,20 +68,20 @@
     <child link="wheel2"/>
     <axis xyz="0 1 0"/>
     <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
-    <origin rpy="0 0 0" xyz="130 118 0"/>
+    <origin rpy="0 0 0" xyz="135 118 8"/>
   </joint>
 
   <!-- wheel3 -->
   <link name="wheel3">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -93,20 +93,20 @@
     <child link="wheel3"/>
     <axis xyz="0 1 0"/>
     <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
-    <origin rpy="0 0 2.0944" xyz="52 17 0"/>
+    <origin rpy="0 0 2.0944" xyz="46 25 8"/>
   </joint>
 
   <!-- wheel4 -->
   <link name="wheel4">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -118,7 +118,7 @@
     <child link="wheel4"/>
     <axis xyz="0 1 0"/>
     <!-- <limit effort="1000.0" lower="-1.571" upper="1.571" velocity="0.5"/> -->
-    <origin rpy="0 0 2.0944" xyz="105 196 0"/>
+    <origin rpy="0 0 2.0944" xyz="99 202 8"/>
   </joint>
 
 </robot>

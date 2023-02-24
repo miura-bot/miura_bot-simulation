@@ -8,14 +8,14 @@
   <!-- Links -->
   <link name="wheel">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -24,13 +24,13 @@
 
   <link name="motor">
     <visual>
-      <!-- <origin rpy="0.0 0 1.5708" xyz="0 0 0"/> -->
+      <origin rpy="0.0 0 1.5708" xyz="6 0 -5"/>
       <geometry>
         <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </visual>
     <collision>
-      <!-- <origin rpy="0.0 0 1.5708" xyz="0 0 0"/> -->
+      <origin rpy="0.0 0 1.5708" xyz="6 0 -5"/>
       <geometry>
         <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -41,7 +41,8 @@
   <joint name="joint1" type="continuous">
     <parent link="wheel"/>
     <child link="motor"/>
-    <origin rpy="0.0 0 1.5708" xyz="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0.0 0 0" xyz="0 0 0"/>
   </joint>
 
 </robot>
