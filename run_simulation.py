@@ -28,6 +28,7 @@ targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -10, 10, 0)
 
 # run simulation
 while True:
+    
     # set wheel velocities
     p.setJointMotorControlArray(bodyIndex=botId, 
                                 jointIndices=[0, 1], 
@@ -40,5 +41,4 @@ while True:
 
     # step
     p.stepSimulation()
-    
     # time.sleep(1./240.)
