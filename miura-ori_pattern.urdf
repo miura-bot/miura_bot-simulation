@@ -137,7 +137,7 @@
     <parent link="base_link"/>
     <child link="base_link_b"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 -2.0944" xyz="140 230 0"/>
+    <origin rpy="0 0 -2.0944" xyz="139 230 0"/>
   </joint>
 
   <!-- wheel1 -->
@@ -232,6 +232,244 @@
   <joint name="joint4_b" type="continuous">
     <parent link="base_link_b"/>
     <child link="wheel4_b"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 2.0944" xyz="99 202 8"/>
+  </joint>
+
+  <!-- base_link -->
+  <link name="base_link_c">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_link_c_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="base_link_c"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0 -150 0"/>
+  </joint>
+
+  <!-- wheel1 -->
+  <link name="wheel1_c">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint1_c" type="continuous">
+    <parent link="base_link_c"/>
+    <child link="wheel1_c"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="5 103 8"/>
+  </joint>
+
+  <!-- wheel2 -->
+  <link name="wheel2_c">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint2_c" type="continuous">
+    <parent link="base_link_c"/>
+    <child link="wheel2_c"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="135 118 8"/>
+  </joint>
+
+  <!-- wheel3 -->
+  <link name="wheel3_c">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint3_c" type="continuous">
+    <parent link="base_link_c"/>
+    <child link="wheel3_c"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 2.0944" xyz="46 25 8"/>
+  </joint>
+
+  <!-- wheel4 -->
+  <link name="wheel4_c">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint4_c" type="continuous">
+    <parent link="base_link_c"/>
+    <child link="wheel4_c"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 2.0944" xyz="99 202 8"/>
+  </joint>
+
+  <!-- base_link -->
+  <link name="base_link_d">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_link_d_joint" type="continuous">
+    <parent link="base_link_c"/>
+    <child link="base_link_d"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 -2.0944" xyz="139 230 0"/>
+  </joint>
+
+  <!-- wheel1 -->
+  <link name="wheel1_d">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint1_d" type="continuous">
+    <parent link="base_link_d"/>
+    <child link="wheel1_d"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="5 103 8"/>
+  </joint>
+
+  <!-- wheel2 -->
+  <link name="wheel2_d">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint2_d" type="continuous">
+    <parent link="base_link_d"/>
+    <child link="wheel2_d"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="135 118 8"/>
+  </joint>
+
+  <!-- wheel3 -->
+  <link name="wheel3_d">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint3_d" type="continuous">
+    <parent link="base_link_d"/>
+    <child link="wheel3_d"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 2.0944" xyz="46 25 8"/>
+  </joint>
+
+  <!-- wheel4 -->
+  <link name="wheel4_d">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <geometry>
+        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="joint4_d" type="continuous">
+    <parent link="base_link_d"/>
+    <child link="wheel4_d"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 0 2.0944" xyz="99 202 8"/>
   </joint>
