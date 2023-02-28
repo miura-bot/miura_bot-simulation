@@ -20,12 +20,27 @@ start_orientation = p.getQuaternionFromEuler([0., 0., 0.])
 urdf = "miura-ori_pattern-2cells.urdf"
 botId = p.loadURDF(urdf, start_pos, start_orientation, globalScaling=0.01)
 
+wheel_a_x = []
+wheel_a_y = []
+
+new_wheel = None
+
 for i in range(p.getNumJoints(botId)):
-    if p.getJointInfo(botId, i)[1] == b'base_link_b_joint':
+    # print(p.getJointInfo(botId, i)[1])
+    if p.getJointInfo(botId, i)[1] == b'shaft_a_b':
         link_joint = i
-        break
+    elif p.getJointInfo(botId, i)[1] == b'shaft_1_a' or p.getJointInfo(botId, i)[1] == b'shaft_3_a':
+        wheel_a_x.append(i)
+    elif p.getJointInfo(botId, i)[1] == b'shaft_2_a' or p.getJointInfo(botId, i)[1] == b'shaft_4_a':
+        wheel_a_y.append(i)  
+    elif p.getJointInfo(botId, i)[1] == b'shaft_2_b':
+        new_wheel = i
 
 targetPos = p.addUserDebugParameter("targetPos", -3.14, 3.14, 0)
+targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -2.0, 2.0, 0)
+targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -2.0, 2.0, 0)
+
+targetVelocitySlider3 = p.addUserDebugParameter("targetVelocity3", -2.0, 2.0, 0)
 
 # run simulation
 while True:
@@ -37,6 +52,23 @@ while True:
         positionGain=1./12.,
         velocityGain=0.4,
     )
+
+    targetVelocity = p.readUserDebugParameter(targetVelocitySlider)
+    p.setJointMotorControlArray(bodyIndex=botId, 
+                                jointIndices=wheel_a_x, 
+                                controlMode=p.VELOCITY_CONTROL, 
+                                targetVelocities = [targetVelocity, targetVelocity])
+    targetVelocity2 = p.readUserDebugParameter(targetVelocitySlider2)
+    p.setJointMotorControlArray(bodyIndex=botId, 
+                                jointIndices=wheel_a_y, 
+                                controlMode=p.VELOCITY_CONTROL, 
+                                targetVelocities = [targetVelocity2, targetVelocity2])
+
+    targetVelocity3 = p.readUserDebugParameter(targetVelocitySlider3)
+    p.setJointMotorControlArray(bodyIndex=botId, 
+                                jointIndices=[new_wheel], 
+                                controlMode=p.VELOCITY_CONTROL, 
+                                targetVelocities = [targetVelocity3])
 
     # step
     p.stepSimulation()
