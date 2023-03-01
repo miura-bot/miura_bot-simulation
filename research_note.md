@@ -10,8 +10,8 @@ import numpy as np
 def rad(degree):
     return (degree / 180.0) * math.pi
 
-rot_mat = np.array([[math.cos(rad(60), -math.sin(rad(60)))],
-                    [math.cos(rad(60), math.sin(rad(60)))]])
+rot_mat = np.array([[math.cos(rad(60)), -math.sin(rad(60))],
+                    [math.cos(rad(60)), math.sin(rad(60))]])
 
 pre_rotate_coor = np.array([[64.9519],
                             [112.5]])

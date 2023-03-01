@@ -4,509 +4,546 @@
   <material name="blue">
     <color rgba = "0 0 0.8 1"/>
   </material>
+  <material name="red">
+    <color rgba = "0.8 0 0 1"/>
+  </material>
 
-  <!-- base_link -->
-  <link name="base_link">
+  <!-- unit cell a -->
+
+  <link name="base_link_a">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0.0" xyz="-5.9493 0.0 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0.0" xyz="-5.9493 0.0 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.100"/>
-      <inertia ixx="6.25e-05" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.00019"/> <!--w=0.15, d=0.086, h=0.01, m=0.1-->
+      <origin xyz="64.9519 112.5 0.0" rpy="0 0 0.0"/>
+      <mass value="1.420"/>
+      <inertia ixx="0.00089" ixy="0.0" ixz="0.0" iyy="0.00355" iyz="0.0" izz="0.002698"/>
     </inertial>
   </link>
 
-  <!-- wheel1 -->
-  <link name="wheel1">
+  <link name="wheel_1_a">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint1" type="revolute">
-    <parent link="base_link"/>
-    <child link="wheel1"/>
+  <joint name="shaft_1_a" type="continuous">
+    <parent link="base_link_a"/>
+    <child link="wheel_1_a"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="5 103 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0" xyz="0.0 105.0 0"/>
   </joint>
 
-  <!-- wheel2 -->
-  <link name="wheel2">
+  <link name="wheel_2_a">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint2" type="revolute">
-    <parent link="base_link"/>
-    <child link="wheel2"/>
+  <joint name="shaft_2_a" type="continuous">
+    <parent link="base_link_a"/>
+    <child link="wheel_2_a"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="135 118 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 -1.0472" xyz="38.9711 22.5 0"/>
   </joint>
 
-  <!-- wheel3 -->
-  <link name="wheel3">
+  <link name="wheel_3_a">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint3" type="revolute">
-    <parent link="base_link"/>
-    <child link="wheel3"/>
+  <joint name="shaft_3_a" type="continuous">
+    <parent link="base_link_a"/>
+    <child link="wheel_3_a"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="46 25 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0" xyz="129.9038 120.0 0"/>
   </joint>
 
-  <!-- wheel4 -->
-  <link name="wheel4">
+  <link name="wheel_4_a">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint4" type="revolute">
-    <parent link="base_link"/>
-    <child link="wheel4"/>
+  <joint name="shaft_4_a" type="continuous">
+    <parent link="base_link_a"/>
+    <child link="wheel_4_a"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="99 202 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 -1.0472" xyz="90.9327 202.5 0"/>
   </joint>
 
-  <!-- base_link -->
+  <!-- unit cell b -->
+
   <link name="base_link_b">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 1.0472" xyz="-2.97465 -2.97465 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 1.0472" xyz="-2.97465 -2.97465 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.100"/>
-      <inertia ixx="6.25e-05" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.00019"/> <!--w=0.15, d=0.086, h=0.01, m=0.1-->
+      <origin xyz="-64.9519 129.9038 0.0" rpy="0 0 0.0"/>
+      <mass value="1.420"/>
+      <inertia ixx="0.00089" ixy="0.0" ixz="0.0" iyy="0.00355" iyz="0.0" izz="0.002698"/>
     </inertial>
   </link>
 
-  <joint name="base_link_b_joint" type="revolute">
-    <parent link="base_link"/>
+  <joint name="shaft_a_b" type="revolute">
+    <parent link="base_link_a"/>
     <child link="base_link_b"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 -2.0944" xyz="139 230 0"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0" xyz="0.0 -2.0 0.0"/>
+    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
   </joint>
 
-  <!-- wheel1 -->
-  <link name="wheel1_b">
+  <link name="wheel_1_b">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint1_b" type="revolute">
+  <joint name="shaft_1_b" type="continuous">
     <parent link="base_link_b"/>
-    <child link="wheel1_b"/>
+    <child link="wheel_1_b"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="5 103 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 1.0472" xyz="-90.9326674 54.5 0"/>
   </joint>
 
-  <!-- wheel2 -->
-  <link name="wheel2_b">
+  <link name="wheel_2_b">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint2_b" type="revolute">
+  <joint name="shaft_2_b" type="continuous">
     <parent link="base_link_b"/>
-    <child link="wheel2_b"/>
+    <child link="wheel_2_b"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="135 118 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0.0" xyz="0.0 47.0 0"/>
   </joint>
 
-  <!-- wheel3 -->
-  <link name="wheel3_b">
+  <link name="wheel_3_b">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint3_b" type="revolute">
+  <joint name="shaft_3_b" type="continuous">
     <parent link="base_link_b"/>
-    <child link="wheel3_b"/>
+    <child link="wheel_3_b"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="46 25 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 1.0472" xyz="-38.9711 174.5 0"/>
   </joint>
 
-  <!-- wheel4 -->
-  <link name="wheel4_b">
+  <link name="wheel_4_b">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint4_b" type="revolute">
+  <joint name="shaft_4_b" type="continuous">
     <parent link="base_link_b"/>
-    <child link="wheel4_b"/>
+    <child link="wheel_4_b"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="99 202 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0.0" xyz="-129.9038 182.0 0"/>
   </joint>
 
-  <!-- base_link -->
+  <!-- unit cell c -->
+
   <link name="base_link_c">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 3.14" xyz="5.9493 5.9493 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 3.14" xyz="5.9493 5.9493 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.100"/>
-      <inertia ixx="6.25e-05" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.00019"/> <!--w=0.15, d=0.086, h=0.01, m=0.1-->
+      <origin xyz="-64.9519 -64.9519 0.0" rpy="0 0 0.0"/>
+      <mass value="1.420"/>
+      <inertia ixx="0.00089" ixy="0.0" ixz="0.0" iyy="0.00355" iyz="0.0" izz="0.002698"/>
     </inertial>
   </link>
 
-  <joint name="base_link_c_joint" type="revolute">
-    <parent link="base_link"/>
+  <joint name="shaft_b_c" type="revolute">
+    <parent link="base_link_b"/>
     <child link="base_link_c"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="0 -150 0"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 1.0472" xyz="-124.9038 74.5.0 0.0"/>
+    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
   </joint>
 
-  <!-- wheel1 -->
-  <link name="wheel1_c">
+  <link name="wheel_1_c">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint1_c" type="revolute">
+  <joint name="shaft_1_c" type="continuous">
     <parent link="base_link_c"/>
-    <child link="wheel1_c"/>
+    <child link="wheel_1_c"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="5 103 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0.0" xyz="0.0 -99.0 0"/>
   </joint>
 
-  <!-- wheel2 -->
-  <link name="wheel2_c">
+  <link name="wheel_2_c">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint2_c" type="revolute">
+  <joint name="shaft_2_c" type="continuous">
     <parent link="base_link_c"/>
-    <child link="wheel2_c"/>
+    <child link="wheel_2_c"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="135 118 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 -1.0472" xyz="-38.9711 -16.5 0"/>
   </joint>
 
-  <!-- wheel3 -->
-  <link name="wheel3_c">
+  <link name="wheel_3_c">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint3_c" type="revolute">
+  <joint name="shaft_3_c" type="continuous">
     <parent link="base_link_c"/>
-    <child link="wheel3_c"/>
+    <child link="wheel_3_c"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="46 25 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0.0" xyz="-129.9038 -114.0 0"/>
   </joint>
 
-  <!-- wheel4 -->
-  <link name="wheel4_c">
+  <link name="wheel_4_c">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint4_c" type="revolute">
+  <joint name="shaft_4_c" type="continuous">
     <parent link="base_link_c"/>
-    <child link="wheel4_c"/>
+    <child link="wheel_4_c"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="99 202 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 -1.0472" xyz="-90.9327 -196.5 0"/>
   </joint>
 
-  <!-- base_link -->
+  <!-- unit cell d -->
+
   <link name="base_link_d">
     <visual>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0.0" xyz="-5.9493 0.0 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0 0.0" xyz="-5.9493 0.0 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.100"/>
-      <inertia ixx="6.25e-05" ixy="0.0" ixz="0.0" iyy="0.00025" iyz="0.0" izz="0.00019"/> <!--w=0.15, d=0.086, h=0.01, m=0.1-->
+      <origin xyz="64.9519 112.5 0.0" rpy="0 0 0.0"/>
+      <mass value="1.420"/>
+      <inertia ixx="0.00089" ixy="0.0" ixz="0.0" iyy="0.00355" iyz="0.0" izz="0.002698"/>
     </inertial>
   </link>
 
-  <joint name="base_link_d_joint" type="revolute">
+  <joint name="shaft_c_d" type="revolute">
     <parent link="base_link_c"/>
     <child link="base_link_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 -2.0944" xyz="139 230 0"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 -1.0472" xyz="-130 -219 0.0"/>
+    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
   </joint>
 
-  <!-- wheel1 -->
-  <link name="wheel1_d">
+  <link name="cylinder_a">
+		<inertial>
+			<mass value="0.003"/>
+			<!-- cylindrical shell : Izz=m*r^2; Ixx=Iyy=1/12*m*(6*r^2+h^2) -->
+			<!-- solid cylinder : Izz=(m*r^2)/2; Ixx=Iyy=1/12*m*(3*r^2+h^2) -->
+			<inertia  ixx="0.00002385" ixy="0.00"  ixz="0.00" iyy="0.00002385" iyz="0.00" izz="0.0000027" />
+		</inertial>
+		<visual>
+			<origin xyz="0 80 0" rpy="1.57 0 0"/>
+			<geometry>
+				<cylinder length="80" radius="1.5"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 80 0" rpy="1.57 0 0"/>
+			<geometry>
+				<cylinder length="0.3" radius="0.03"/>
+			</geometry>
+		</collision>
+	</link>
+
+  <link name="cylinder_d">
+		<inertial>
+			<mass value="0.003"/>
+			<!-- cylindrical shell : Izz=m*r^2; Ixx=Iyy=1/12*m*(6*r^2+h^2) -->
+			<!-- solid cylinder : Izz=(m*r^2)/2; Ixx=Iyy=1/12*m*(3*r^2+h^2) -->
+			<inertia  ixx="0.00002385" ixy="0.00"  ixz="0.00" iyy="0.00002385" iyz="0.00" izz="0.0000027" />
+		</inertial>
+		<visual>
+			<origin xyz="0 80 0" rpy="1.57 0 0"/>
+			<geometry>
+				<cylinder length="80" radius="1.5"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin xyz="0 80 0" rpy="1.57 0 0"/>
+			<geometry>
+				<cylinder length="0.3" radius="0.03"/>
+			</geometry>
+		</collision>
+	</link>
+
+  <joint name="shaft_a_cylinder" type="revolute">
+    <parent link="base_link_a"/>
+    <child link="cylinder_a"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 -1.0472" xyz="0 0 0"/>
+    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
+  </joint>
+
+  <joint name="shaft_d_cylinder" type="revolute">
+    <parent link="base_link_d"/>
+    <child link="cylinder_d"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 -1.0472" xyz="0 150 0"/>
+    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
+  </joint>
+
+  <!-- <link name="wheel_1_d">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0 0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint1_d" type="revolute">
+  <joint name="shaft_1_d" type="continuous">
     <parent link="base_link_d"/>
-    <child link="wheel1_d"/>
+    <child link="wheel_1_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="5 103 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 1.0472" xyz="-90.9326674 54.5 0"/>
   </joint>
 
-  <!-- wheel2 -->
-  <link name="wheel2_d">
+  <link name="wheel_2_d">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint2_d" type="revolute">
+  <joint name="shaft_2_d" type="continuous">
     <parent link="base_link_d"/>
-    <child link="wheel2_d"/>
+    <child link="wheel_2_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="135 118 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 0.0" xyz="0.0 47.0 0"/>
   </joint>
 
-  <!-- wheel3 -->
-  <link name="wheel3_d">
+  <link name="wheel_3_d">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint3_d" type="revolute">
+  <joint name="shaft_3_d" type="continuous">
     <parent link="base_link_d"/>
-    <child link="wheel3_d"/>
+    <child link="wheel_3_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="46 25 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <origin rpy="0 0 1.0472" xyz="-38.9711 174.5 0"/>
   </joint>
 
-  <!-- wheel4 -->
-  <link name="wheel4_d">
+  <link name="wheel_4_d">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
-      <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
+      <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>
 
-  <joint name="joint4_d" type="revolute">
+  <joint name="shaft_4_d" type="continuous">
     <parent link="base_link_d"/>
-    <child link="wheel4_d"/>
+    <child link="wheel_4_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 2.0944" xyz="99 202 8"/>
-    <limit effort="40" lower="-3.14" upper="3.14" velocity="0.1"/>
-  </joint>
+    <origin rpy="0 0 0.0" xyz="-129.9038 182.0 0"/>
+  </joint> -->
 
 </robot>
