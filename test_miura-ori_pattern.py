@@ -26,8 +26,8 @@ wheel_b_x = []
 wheel_b_y = []
 wheel_c_x = []
 wheel_c_y = []
-
-# new_wheel = None
+wheel_d_x = []
+wheel_d_y = []
 
 nJoints = p.getNumJoints(botId)
 jointNameToId = {}
@@ -55,12 +55,14 @@ for i in range(p.getNumJoints(botId)):
         wheel_c_x.append(i)
     elif p.getJointInfo(botId, i)[1] == b'shaft_2_c' or p.getJointInfo(botId, i)[1] == b'shaft_4_c':
         wheel_c_y.append(i)
-    # if p.getJointInfo(botId, i)[1] == b'shaft_2_c':
-    #     new_wheel = i
+    elif p.getJointInfo(botId, i)[1] == b'shaft_1_d' or p.getJointInfo(botId, i)[1] == b'shaft_3_d':
+        wheel_d_x.append(i)
+    elif p.getJointInfo(botId, i)[1] == b'shaft_2_d' or p.getJointInfo(botId, i)[1] == b'shaft_4_d':
+        wheel_d_y.append(i)
 
 targetPosAB = p.addUserDebugParameter("targetPosAB", -3.14, 3.14, 0)
-targetPosBC = p.addUserDebugParameter("targetPosBC", -3.14, 3.14, 0)
-targetPosCD = p.addUserDebugParameter("targetPosCD", -3.14, 3.14, 0)
+# targetPosBC = p.addUserDebugParameter("targetPosBC", -3.14, 3.14, 0)
+# targetPosCD = p.addUserDebugParameter("targetPosCD", -3.14, 3.14, 0)
 
 targetVelocitySlider1a = p.addUserDebugParameter("targetVelocity1a", -2.0, 2.0, 0)
 targetVelocitySlider2a = p.addUserDebugParameter("targetVelocity2a", -2.0, 2.0, 0)
@@ -71,13 +73,17 @@ targetVelocitySlider2b = p.addUserDebugParameter("targetVelocity2b", -2.0, 2.0, 
 targetVelocitySlider1c = p.addUserDebugParameter("targetVelocity1c", -2.0, 2.0, 0)
 targetVelocitySlider2c = p.addUserDebugParameter("targetVelocity2c", -2.0, 2.0, 0)
 
-# testWheel = p.addUserDebugParameter("testWheel", -2.0, 2.0, 0)
+targetVelocitySlider1d = p.addUserDebugParameter("targetVelocity1d", -2.0, 2.0, 0)
+targetVelocitySlider2d = p.addUserDebugParameter("targetVelocity2d", -2.0, 2.0, 0)
+
+testWheel = p.addUserDebugParameter("testWheel", -2.0, 2.0, 0)
 
 joint_constraint = p.createConstraint(
     botId, jointNameToId["shaft_a_cylinder"], 
     botId, jointNameToId["shaft_d_cylinder"], 
-    p.JOINT_POINT2POINT, [0, 1, 0], [0, 0, 0], [0, 0, 0])
-print(joint_constraint)
+    p.JOINT_FIXED, [0, 0, 0], [0, 80, 0], [0, 80, 0])
+
+p.changeConstraint(joint_constraint, maxForce=10.0)
 
 # run simulation
 while True:
@@ -94,19 +100,19 @@ while True:
     #     bodyIndex=botId, 
     #     jointIndex=b_c_joint, 
     #     controlMode=p.POSITION_CONTROL, 
-    #     targetPosition = p.readUserDebugParameter(targetPosBC),
+    #     targetPosition = -2.0 * p.readUserDebugParameter(targetPosAB), # targetPosBC
     #     positionGain=1./12.,
     #     velocityGain=0.4,
     # )
 
-    # p.setJointMotorControl2(
-    #     bodyIndex=botId, 
-    #     jointIndex=c_d_joint, 
-    #     controlMode=p.POSITION_CONTROL, 
-    #     targetPosition = p.readUserDebugParameter(targetPosCD),
-    #     positionGain=1./12.,
-    #     velocityGain=0.4,
-    # )
+    p.setJointMotorControl2(
+        bodyIndex=botId, 
+        jointIndex=c_d_joint, 
+        controlMode=p.POSITION_CONTROL, 
+        targetPosition = p.readUserDebugParameter(targetPosAB), # targetPosCD
+        positionGain=1./12.,
+        velocityGain=0.4,
+    )
 
     targetVelocity1a = p.readUserDebugParameter(targetVelocitySlider1a)
     p.setJointMotorControlArray(bodyIndex=botId, 
@@ -132,26 +138,25 @@ while True:
     
     targetVelocity1c = p.readUserDebugParameter(targetVelocitySlider1c)
     p.setJointMotorControlArray(bodyIndex=botId, 
-                                jointIndices=wheel_b_x, 
+                                jointIndices=wheel_c_x, 
                                 controlMode=p.VELOCITY_CONTROL, 
                                 targetVelocities = [targetVelocity1c, targetVelocity1c])
     targetVelocity2c = p.readUserDebugParameter(targetVelocitySlider2c)
     p.setJointMotorControlArray(bodyIndex=botId, 
-                                jointIndices=wheel_b_y, 
+                                jointIndices=wheel_c_y, 
                                 controlMode=p.VELOCITY_CONTROL, 
                                 targetVelocities = [targetVelocity2c, targetVelocity2c])
     
-    targetVelocity2c = p.readUserDebugParameter(targetVelocitySlider2c)
+    targetVelocity1d = p.readUserDebugParameter(targetVelocitySlider1d)
     p.setJointMotorControlArray(bodyIndex=botId, 
-                                jointIndices=wheel_b_y, 
+                                jointIndices=wheel_d_x, 
                                 controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [targetVelocity2c, targetVelocity2c])
-
-    # testVel = p.readUserDebugParameter(testWheel)
-    # p.setJointMotorControlArray(bodyIndex=botId, 
-    #                             jointIndices=[new_wheel], 
-    #                             controlMode=p.VELOCITY_CONTROL, 
-    #                             targetVelocities = [testVel])
+                                targetVelocities = [targetVelocity1d, targetVelocity1d])
+    targetVelocity2d = p.readUserDebugParameter(targetVelocitySlider2d)
+    p.setJointMotorControlArray(bodyIndex=botId, 
+                                jointIndices=wheel_d_y, 
+                                controlMode=p.VELOCITY_CONTROL, 
+                                targetVelocities = [targetVelocity2d, targetVelocity2d])
 
     # step
     p.stepSimulation()

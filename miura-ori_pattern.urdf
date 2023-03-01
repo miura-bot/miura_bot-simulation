@@ -149,7 +149,7 @@
     <child link="base_link_b"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 0 0" xyz="0.0 -2.0 0.0"/>
-    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <limit effort="0.1" lower="-3.14" upper="3.14" velocity="0.1"/>
   </joint>
 
   <link name="wheel_1_b">
@@ -266,12 +266,12 @@
     </inertial>
   </link>
 
-  <joint name="shaft_b_c" type="revolute">
+  <joint name="shaft_b_c" type="continuous">
     <parent link="base_link_b"/>
     <child link="base_link_c"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 0 1.0472" xyz="-124.9038 74.5.0 0.0"/>
-    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <!-- <limit effort="0.01" lower="-3.14" upper="3.14" velocity="0.1"/> -->
   </joint>
 
   <link name="wheel_1_c">
@@ -393,7 +393,7 @@
     <child link="base_link_d"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 0 -1.0472" xyz="-130 -219 0.0"/>
-    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <limit effort="0.1" lower="-3.14" upper="3.14" velocity="0.1"/>
   </joint>
 
   <link name="cylinder_a">
@@ -443,7 +443,7 @@
     <child link="cylinder_a"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 0 -1.0472" xyz="0 0 0"/>
-    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <limit effort="0.01" lower="-3.14" upper="3.14" velocity="0.1"/>
   </joint>
 
   <joint name="shaft_d_cylinder" type="revolute">
@@ -451,10 +451,10 @@
     <child link="cylinder_d"/>
     <axis xyz="0 1 0"/>
     <origin rpy="0 0 -1.0472" xyz="0 150 0"/>
-    <limit effort="1" lower="-3.14" upper="3.14" velocity="0.1"/>
+    <limit effort="0.01" lower="-3.14" upper="3.14" velocity="0.1"/>
   </joint>
 
-  <!-- <link name="wheel_1_d">
+  <link name="wheel_1_d">
     <visual>
       <origin rpy="0.0 0 0.0" xyz="-8.0 -2.0 -8.0"/>
       <geometry>
@@ -474,7 +474,7 @@
     <parent link="base_link_d"/>
     <child link="wheel_1_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 1.0472" xyz="-90.9326674 54.5 0"/>
+    <origin rpy="0 0 0.0" xyz="0.0 105.0 0"/>
   </joint>
 
   <link name="wheel_2_d">
@@ -497,7 +497,7 @@
     <parent link="base_link_d"/>
     <child link="wheel_2_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0.0" xyz="0.0 47.0 0"/>
+    <origin rpy="0 0 -1.0472" xyz="38.9711 22.5 0"/>
   </joint>
 
   <link name="wheel_3_d">
@@ -520,7 +520,7 @@
     <parent link="base_link_d"/>
     <child link="wheel_3_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 1.0472" xyz="-38.9711 174.5 0"/>
+    <origin rpy="0 0 0" xyz="129.9038 120.0 0"/>
   </joint>
 
   <link name="wheel_4_d">
@@ -543,7 +543,7 @@
     <parent link="base_link_d"/>
     <child link="wheel_4_d"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0.0" xyz="-129.9038 182.0 0"/>
-  </joint> -->
+    <origin rpy="0 0 -1.0472" xyz="90.9327 202.5 0"/>
+  </joint>
 
 </robot>
