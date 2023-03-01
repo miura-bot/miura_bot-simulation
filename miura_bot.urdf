@@ -4,6 +4,15 @@
   <material name="blue">
     <color rgba = "0 0 0.8 1"/>
   </material>
+  <material name="red">
+    <color rgba = "0.8 0.0 0 1"/>
+  </material>
+  <material name="green">
+    <color rgba = "0.0 0.8 0 1"/>
+  </material>
+  <material name="purple">
+    <color rgba = "0.4 0.1 0.8 1"/>
+  </material>
 
   <!-- base_link -->
   <link name="base_link">
@@ -37,6 +46,100 @@
       </geometry>
     </collision>
   </link>
+
+  <!-- motor1 -->
+  <link name="motor1">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 -6 -5"/>
+      <geometry>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="jointmotor1" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor1"/>
+    <origin rpy="0 0 4.71238898038" xyz="28.0000052838 115 5"/> 
+  </joint>
+
+  <!-- motor2 -->
+  <link name="motor2">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 -6 -5"/>
+      <geometry>
+        <mesh filename="motor_tip.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="motor_tip.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="jointmotor2" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor2"/>
+    <origin rpy="0 0 1.57079632679" xyz="113.9 110 5"/> 
+  </joint>
+
+  <!-- motor3 -->
+  <link name="motor3">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 -6 -5"/>
+      <geometry>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="jointmotor3" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor3"/>
+    <origin rpy="0 0 0.523598775598" xyz="25.31 36.5526 5"/> 
+  </joint>
+
+  <!-- motor4 -->
+  <link name="motor4">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 -6 -5"/>
+      <geometry>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="jointmotor4" type="fixed">
+    <parent link="base_link"/>
+    <child link="motor4"/>
+    <origin rpy="0 0 3.66519142919" xyz="116.593 188.447 5"/> 
+  </joint>
+
+  
 
   <joint name="joint1" type="continuous">
     <parent link="base_link"/>
