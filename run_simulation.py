@@ -23,23 +23,23 @@ botId = p.loadURDF(urdf, start_pos, start_orientation, globalScaling=0.01)
 #   print(p.getJointInfo(botId, i))
 
 # set up wheel sliders
-targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -2.0, 2.0, 0)
-targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -2.0, 2.0, 0)
+targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -100.0, 100.0, 0)
+targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -100.0, 100.0, 0)
 
 # run simulation
 while True:
     # set wheel velocities
     targetVelocity = p.readUserDebugParameter(targetVelocitySlider)
     p.setJointMotorControlArray(bodyIndex=botId, 
-                                jointIndices=[0, 1], 
+                                jointIndices=[0, 2], 
                                 controlMode=p.VELOCITY_CONTROL, 
                                 targetVelocities = [targetVelocity, targetVelocity])
     targetVelocity2 = p.readUserDebugParameter(targetVelocitySlider2)
     p.setJointMotorControlArray(bodyIndex=botId, 
-                                jointIndices=[2, 3], 
+                                jointIndices=[1, 3], 
                                 controlMode=p.VELOCITY_CONTROL, 
                                 targetVelocities = [targetVelocity2, targetVelocity2])
 
     # step
     p.stepSimulation()
-    time.sleep(1./240.)
+    # time.sleep(1./60.)
