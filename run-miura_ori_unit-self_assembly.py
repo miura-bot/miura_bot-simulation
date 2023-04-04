@@ -13,128 +13,205 @@ p.setAdditionalSearchPath(pybullet_data.getDataPath())
 p.setGravity(0, 0, -9.81)
 p.loadURDF("plane.urdf", [0, 0, 0], [0, 0, 0, 1])
 
-# set target position and orientation relative to the first parallelogram
-target_pos = [3.0, 0, 0]
-# target_pos = [1.4, 0, 0]
-target_orientation = p.getQuaternionFromEuler([0., 0., np.pi/3])
-target_orientation = p.getEulerFromQuaternion(target_orientation)
+parallelogram_module_urdf = "miura_bot.urdf"
 
-final_target_pos = [1.35, -0.3, 0]
+##### TARGET POSITIONS AND ORIENTATIONS #####
 
-# load parallelogram bot urdf
-start_pos_0 = [0, 0, 0.2]
-start_orientation_0 = p.getQuaternionFromEuler([0., 0., 0.])
-urdf = "miura_bot.urdf"
-bot0Id = p.loadURDF(urdf, start_pos_0, start_orientation_0, globalScaling=0.01)
+# stage 0 (starting) positions and orientations
+# TODO: Add random starting configurations within the quadrant
+# TODO: (future) Assign ids based on starting configurations
 
-# start_pos_1 = [np.random.uniform(5, 7), np.random.uniform(-5, 5), 0.2]
-start_pos_1 = [5, 3.5, 0.2]
-# start_pos_1 = target_pos
-# start_orientation_1 = p.getQuaternionFromEuler([0., 0., np.random.uniform(0, np.pi)])
-start_orientation_1 = p.getQuaternionFromEuler([0., 0., 0])
-# start_orientation_1 = p.getQuaternionFromEuler(target_orientation)
-bot1Id = p.loadURDF(urdf, start_pos_1, start_orientation_1, globalScaling=0.01)
+bot1_starting_pos = [5, 5, 0.2]
+bot1_orientation = p.getQuaternionFromEuler([0., 0., 0.])
 
-vector_done = False
-rotate_done = False
+bot2_starting_pos = [-5, 5, 0.2]
+bot2_orientation = p.getQuaternionFromEuler([0., 0., 0.])
 
-while True:
+bot3_starting_pos = [-5, -5, 0.2]
+bot3_orientation = p.getQuaternionFromEuler([0., 0., 0.])
 
-    pos0, ang0 = p.getBasePositionAndOrientation(bot0Id, physicsClientId = client)
-    ang0 = p.getEulerFromQuaternion(ang0)
-    pos1, ang1 = p.getBasePositionAndOrientation(bot1Id, physicsClientId = client)
-    ang1 = p.getEulerFromQuaternion(ang1)
+bot4_starting_pos = [5, -5, 0.2]
+bot4_orientation = p.getQuaternionFromEuler([0., 0., 0.])
+
+# stage 1 target positions and orientations
+
+bot4_stage1_target_pos_relative_bot3 = [3.0, 0., 0.]
+bot4_stage1_target_orientation_relative_bot3 = [0., 0., np.pi/3]
+
+# stage 2 target positions and orientations
+
+bot1_stage2_target_pos_relative_bot4 = [-3*np.cos(np.radians(120)), 3*np.sin(np.radians(120)), 0.]
+bot1_stage2_target_orientation_relative_bot4 = [0., 0., 0.]
+bot1_stage2_1_target_pos_relative_bot4 = [-1.35*np.cos(np.radians(120)), 1.35*np.sin(np.radians(120)), 0.]
+
+bot2_stage2_target_pos_relative_bot3 = [-3*np.cos(np.radians(60)), 3*np.sin(np.radians(60)), 0.]
+bot2_stage2_target_orientation_relative_bot3 = [0., 0., 0.]
+bot2_stage2_1_target_pos_relative_bot3 = [-1.35*np.cos(np.radians(60)), 1.35*np.sin(np.radians(60)), 0.]
+
+# stage 3 target positions and orientations
+
+bot1_stage3_target_pos_relative_bot2 = [1.35, 0., 0.]
+bot1_stage3_target_orientation_relative_bot2 = p.getQuaternionFromEuler([0., 0., 0.])
+
+bot4_stage3_target_pos_relative_bot3 = [1.35, 0., 0.]
+bot4_stage3_target_orientation_relative_bot3 = p.getQuaternionFromEuler([0., 0., 0.])
+
+##### MOVEMENT HELPER FUNCTIONS #####
+
+# TODO: MAKE THIS WORK FOR ANY ORIENTATION OF PARALLELOGRAM MODULE
+# TODO: ADD A MOVEMENT SPEED MINIMUM
+def vector_translation(botA_id, botB_id, botA_target_pos_relative_botB, atol=0.1):
+    
+    botA_pos, botA_orientation = p.getBasePositionAndOrientation(botA_id, physicsClientId=client)
+    botA_orientation = p.getEulerFromQuaternion(botA_orientation)
+    botB_pos, botB_orientation = p.getBasePositionAndOrientation(botB_id, physicsClientId=client)
+    botB_orientation = p.getEulerFromQuaternion(botB_orientation)
+    if not np.isclose(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos, atol=atol).all():
         
-    if not vector_done and not np.isclose(np.add(pos0, target_pos), pos1, atol=0.1).all():
+        p.addUserDebugLine(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos, lifeTime=3, lineColorRGB=[1, 0, 0])
 
-        p.addUserDebugLine(np.add(pos0, target_pos), pos1, lifeTime=3, lineColorRGB=[1, 0, 0])
+        vector = np.subtract(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos)
+        s1 = vector[1] + (np.sqrt(3)/3.) * vector[0] * 10 * 1.75
+        s2 = 2.*np.sqrt(3)/3. * vector[0] * 10 * -1
+        print("vector_translation", s1, s2)
 
-        vector_to_follow = np.subtract(np.add(pos0, target_pos), pos1)
-        print(vector_to_follow)
-        # s1 = vector_to_follow[1] - (np.sqrt(3)/3.) * vector_to_follow[0] * 10
-        # s2 = 2.*np.sqrt(3)/3. * vector_to_follow[0] * 10
-
-        # theta = np.deg2rad(ang1)
-        # rot = np.array([[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]])
-
-        # rotated_vector_to_follow = np.dot(rot, vector_to_follow)
-
-        # s1 = rotated_vector_to_follow[1] + (np.sqrt(3)/3.) * rotated_vector_to_follow[0] * 10 * 1.75
-        # s2 = 2.*np.sqrt(3)/3. * rotated_vector_to_follow[0] * 10 * -1
-
-        s1 = vector_to_follow[1] + (np.sqrt(3)/3.) * vector_to_follow[0] * 10 * 1.75
-        s2 = 2.*np.sqrt(3)/3. * vector_to_follow[0] * 10 * -1
-        print("move", s1, s2)
-
-        p.setJointMotorControlArray(bodyIndex=bot1Id, 
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
                                     jointIndices=[0, 2], 
                                     controlMode=p.VELOCITY_CONTROL, 
                                     targetVelocities = [-s2, -s2])
         
-        p.setJointMotorControlArray(bodyIndex=bot1Id, 
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
                                     jointIndices=[1, 3], 
                                     controlMode=p.VELOCITY_CONTROL, 
                                     targetVelocities = [-s1, -s1])
         
-    elif not rotate_done and not np.isclose(np.array(ang1)[2], np.add(ang0, target_orientation)[2], atol=np.radians(3)).all():
-        vector_done = True
-        # print(np.array(ang1), np.add(ang0, target_orientation), np.isclose(np.array(ang1), np.add(ang0, target_orientation), atol=0.1).all())
-        print("rotate", np.array(ang1)[2], np.add(ang0, target_orientation)[2])
-        if (np.array(ang1)[2] > np.add(ang0, target_orientation)[2]):
-            targetVelocity = -10 * abs(np.array(ang1)[2] - np.add(ang0, target_orientation)[2])
-        else:
-            targetVelocity = 10 * abs(np.array(ang1)[2] - np.add(ang0, target_orientation)[2])
-        p.setJointMotorControlArray(bodyIndex=bot1Id, 
-                                jointIndices=[1, 3], 
-                                controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [targetVelocity, -targetVelocity])
-        
-        p.setJointMotorControlArray(bodyIndex=bot1Id, 
-                                jointIndices=[0, 2], 
-                                controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [0, 0])
-        
-    elif not np.isclose(np.array(pos1)[0], np.add(pos0, final_target_pos)[0], atol=0.1).all():
-        rotate_done = True
-        if np.array(pos1)[0] > np.add(pos0, final_target_pos)[0]:
-            targetVelocity = -5
-        else:
-            targetVelocity = 5
-        print("move left right", np.array(pos1)[0], np.add(pos0, final_target_pos)[0], targetVelocity)
-        p.setJointMotorControlArray(bodyIndex=bot1Id, 
-                                jointIndices=[1, 3], 
-                                controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [targetVelocity, targetVelocity])
-        
-        p.setJointMotorControlArray(bodyIndex=bot1Id, 
-                                jointIndices=[0, 2], 
-                                controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [0, 0])
-
-        # p.addUserDebugLine(np.add(pos0, final_target_pos), pos1, lifeTime=3, lineColorRGB=[1, 0, 0])
-
-        # vector_to_follow = np.subtract(np.add(pos0, final_target_pos), pos1)
-        # # s1 = vector_to_follow[1] - (np.sqrt(3)/3.) * vector_to_follow[0] * 10
-        # # s2 = 2.*np.sqrt(3)/3. * vector_to_follow[0] * 10
-        # s1 = vector_to_follow[1] + (np.sqrt(3)/3.) * vector_to_follow[0]
-        # s2 = 2.*np.sqrt(3)/3. * vector_to_follow[0] * -1
-        # print("final move", s1, s2)
-
-        # p.setJointMotorControlArray(bodyIndex=bot1Id, 
-        #                             jointIndices=[0, 2], 
-        #                             controlMode=p.VELOCITY_CONTROL, 
-        #                             targetVelocities = [-s2, -s2])
-        
-        # p.setJointMotorControlArray(bodyIndex=bot1Id, 
-        #                             jointIndices=[1, 3], 
-        #                             controlMode=p.VELOCITY_CONTROL, 
-        #                             targetVelocities = [-s1, -s1])
-        
+        return False
     else:
-        print("done", pos0, ang0, pos1, ang1)
-        p.setJointMotorControlArray(bodyIndex=bot1Id, 
-                                jointIndices=[0, 1, 2, 3], 
-                                controlMode=p.VELOCITY_CONTROL, 
-                                targetVelocities = [0, 0, 0, 0])
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
+                                    jointIndices=[0, 1, 2, 3], 
+                                    controlMode=p.VELOCITY_CONTROL, 
+                                    targetVelocities = [0, 0, 0, 0])
+        return True
+    
+# TODO: REMOVE WHEN vector_translation WORKS FOR ALL ORIENTATIONS
+def vector_translation_temp(botA_id, botB_id, botA_target_pos_relative_botB, atol=0.1, targetVelocities=[0, 0, 0, 0]):
+    
+    botA_pos, botA_orientation = p.getBasePositionAndOrientation(botA_id, physicsClientId=client)
+    botA_orientation = p.getEulerFromQuaternion(botA_orientation)
+    botB_pos, botB_orientation = p.getBasePositionAndOrientation(botB_id, physicsClientId=client)
+    botB_orientation = p.getEulerFromQuaternion(botB_orientation)
+    if not np.isclose(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos, atol=atol).all():
 
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
+                                    jointIndices=[0, 1, 2, 3], 
+                                    controlMode=p.VELOCITY_CONTROL, 
+                                    targetVelocities = targetVelocities)
+        
+        return False
+    else:
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
+                                    jointIndices=[0, 1, 2, 3], 
+                                    controlMode=p.VELOCITY_CONTROL, 
+                                    targetVelocities = [0, 0, 0, 0])
+        return True
+    
+def rotation(botA_id, botB_id, botA_target_orientation_relative_botB, atol=np.radians(3)):
+    
+    botA_pos, botA_orientation = p.getBasePositionAndOrientation(botA_id, physicsClientId=client)
+    botA_orientation = p.getEulerFromQuaternion(botA_orientation)
+    botB_pos, botB_orientation = p.getBasePositionAndOrientation(botB_id, physicsClientId=client)
+    botB_orientation = p.getEulerFromQuaternion(botB_orientation)
+    if not np.isclose(np.add(botB_orientation, botA_target_orientation_relative_botB), botA_orientation, atol=atol).all():
+
+        yaw_diff = np.subtract(np.add(botB_orientation, botA_target_orientation_relative_botB), botA_orientation)[2]
+        min_abs_velocity = 10
+        if (yaw_diff < 0):
+            targetVelocity = min(-10 * abs(yaw_diff), min_abs_velocity)
+        else:
+            targetVelocity = max(10 * abs(yaw_diff), min_abs_velocity)
+
+        print("rotation", botA_orientation, np.add(botB_orientation, botA_target_orientation_relative_botB), targetVelocity)
+
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
+                                    jointIndices=[1, 3], 
+                                    controlMode=p.VELOCITY_CONTROL, 
+                                    targetVelocities = [targetVelocity, -targetVelocity])
+        
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
+                                    jointIndices=[0, 2], 
+                                    controlMode=p.VELOCITY_CONTROL, 
+                                    targetVelocities = [0, 0])
+        
+        return False
+    else:
+        p.setJointMotorControlArray(bodyIndex=botA_id, 
+                                    jointIndices=[0, 1, 2, 3], 
+                                    controlMode=p.VELOCITY_CONTROL, 
+                                    targetVelocities = [0, 0, 0, 0])
+        return True
+
+##### LOAD URDF FILES #####
+
+# Load 4 parallelogram modules from URDF into 4 quadrants
+bot1_id = p.loadURDF(parallelogram_module_urdf, bot1_starting_pos, bot1_orientation, globalScaling=0.01)
+bot2_id = p.loadURDF(parallelogram_module_urdf, bot2_starting_pos, bot2_orientation, globalScaling=0.01)
+bot3_id = p.loadURDF(parallelogram_module_urdf, bot3_starting_pos, bot3_orientation, globalScaling=0.01)
+bot4_id = p.loadURDF(parallelogram_module_urdf, bot4_starting_pos, bot4_orientation, globalScaling=0.01)
+
+##### STEP SIMUlATION FOR SELF-ASSEMBLY #####
+
+stage = 0
+vector_translation_complete_1a = False
+rotation_complete_1a = False
+vector_translation_complete_2a = False
+rotation_complete_2a = False
+vector_translation_complete_2a1 = False
+vector_translation_complete_2b = False
+rotation_complete_2b = False
+vector_translation_complete_2b1 = False
+vector_translation_complete_3a = False
+while True:
+    if stage == 0:
+        print("Stage %d: alligning quadrant 4 parallelogram to quadrant 3 parallelogram" % stage)
+
+        if not vector_translation_complete_1a:
+            vector_translation_complete_1a = vector_translation(bot4_id, bot3_id, bot4_stage1_target_pos_relative_bot3)
+        elif not rotation_complete_1a:
+            rotation_complete_1a = rotation(bot4_id, bot3_id, bot4_stage1_target_orientation_relative_bot3)
+        
+        if vector_translation_complete_1a and rotation_complete_1a:
+            stage = 1
+    elif stage == 1:
+        # TODO: FIX THE OVERSHOOTING
+        print("Stage %d: alligning top quadrant parallelograms with bottom quadraft parallelograms" % stage)
+
+        if not vector_translation_complete_2a:
+            vector_translation_complete_2a = vector_translation(bot1_id, bot4_id, bot1_stage2_target_pos_relative_bot4)
+        elif not rotation_complete_2a:
+            rotation_complete_2a = rotation(bot1_id, bot4_id, bot1_stage2_target_orientation_relative_bot4)
+        elif not vector_translation_complete_2a1:
+            vector_translation_complete_2a1 = vector_translation_temp(bot1_id, bot4_id, bot1_stage2_1_target_pos_relative_bot4, [-5, 0, -5, 0])
+
+        if not vector_translation_complete_2b:
+            vector_translation_complete_2b = vector_translation(bot2_id, bot3_id, bot2_stage2_target_pos_relative_bot3)
+        elif not rotation_complete_2b:
+            rotation_complete_2b = rotation(bot2_id, bot3_id, bot2_stage2_target_orientation_relative_bot3)
+        elif not vector_translation_complete_2b1:
+            vector_translation_complete_2b1 = vector_translation_temp(bot2_id, bot3_id, bot2_stage2_1_target_pos_relative_bot3)
+
+        if vector_translation_complete_2a and rotation_complete_2a and vector_translation_complete_2b and rotation_complete_2b:
+            stage = 2
+    elif stage == 2:
+        print("Stage %d: alighning right quadrant parallelograms (coupled) with left quadraft parallelograms (coupled)" % stage)
+
+        if not vector_translation_complete_3a:
+            vector_translation_complete_3a_top = vector_translation_temp(bot1_id, bot2_id, bot1_stage3_target_pos_relative_bot2, [0, 5, 0, 5])
+            vector_translation_complete_3a_bottom = vector_translation_temp(bot4_id, bot3_id, bot4_stage3_target_pos_relative_bot3, [0, 5, 0, 5])
+
+        if vector_translation_complete_3a_top and vector_translation_complete_3a_bottom:
+            stage = 3
+    elif stage == 3:
+        print("Stage %d: Self-Assembly Complete" % stage)
+    else:
+        print("Stage Error: Stage %d is an invalid number." % stage)
     p.stepSimulation()
