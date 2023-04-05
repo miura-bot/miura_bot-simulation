@@ -10,13 +10,13 @@
     <visual>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="mori-design-2.stl" scale="0.10 0.10 0.10"/>
       </geometry>
     </visual>
     <collision>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="mori-design-2.stl" scale="0.10 0.10 0.10"/>
       </geometry>
     </collision>
   </link>
@@ -26,14 +26,14 @@
     <visual>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
     </collision>
   </link>
@@ -50,14 +50,14 @@
     <visual>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
     </collision>
   </link>
@@ -74,14 +74,14 @@
     <visual>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
     </collision>
   </link>
@@ -98,14 +98,14 @@
     <visual>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
       <origin rpy="0.0 0 0" xyz="-8 0 -8"/>
       <geometry>
-        <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="wheel.stl" scale="0.10 0.10 0.10"/>
       </geometry>
     </collision>
   </link>
@@ -128,7 +128,8 @@
     <collision>
       <origin rpy="0.0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="
+        ri-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
   </link>

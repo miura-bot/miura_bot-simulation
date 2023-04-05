@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 import pybullet as p
 import pybullet_data
 import time
@@ -14,33 +14,32 @@ p.setGravity(0, 0, -9.81)
 p.loadURDF("plane.urdf", [0, 0, 0], [0, 0, 0, 1])
 
 # load parallelogram bot urdf
-start_pos = [0, 0, 0.01]
+start_pos = [0, 0, 0.2]
 start_orientation = p.getQuaternionFromEuler([0., 0., 0.])
 urdf = "miura_bot.urdf"
 botId = p.loadURDF(urdf, start_pos, start_orientation, globalScaling=0.01)
 
-for i in range(p.getNumJoints(botId)):
-  print(p.getJointInfo(botId, i))
+# for i in range(p.getNumJoints(botId)):
+#   print(p.getJointInfo(botId, i))
 
 # set up wheel sliders
-targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -100, 100, 0)
-targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -100, 100, 0)
+targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -100.0, 100.0, 0)
+targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -100.0, 100.0, 0)
 
 # run simulation
 while True:
-    
     # set wheel velocities
     targetVelocity = p.readUserDebugParameter(targetVelocitySlider)
     p.setJointMotorControlArray(bodyIndex=botId, 
-                                jointIndices=[0, 1], 
+                                jointIndices=[0, 2], 
                                 controlMode=p.VELOCITY_CONTROL, 
                                 targetVelocities = [targetVelocity, targetVelocity])
     targetVelocity2 = p.readUserDebugParameter(targetVelocitySlider2)
     p.setJointMotorControlArray(bodyIndex=botId, 
-                                jointIndices=[2, 3], 
+                                jointIndices=[1, 3], 
                                 controlMode=p.VELOCITY_CONTROL, 
                                 targetVelocities = [targetVelocity2, targetVelocity2])
 
     # step
     p.stepSimulation()
-    # time.sleep(1./240.)
+    # time.sleep(1./60.)
