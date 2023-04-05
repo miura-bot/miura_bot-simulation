@@ -242,6 +242,6 @@
     <parent link="base_link"/>
     <child link="motor4"/>
     <origin rpy="0 0 3.66519142919" xyz="45.641 75.9474 0"/> 
-  </joint>
+  </joint> 
 
 </robot>
