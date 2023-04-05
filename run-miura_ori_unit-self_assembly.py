@@ -18,7 +18,6 @@ parallelogram_module_urdf = "miura_bot.urdf"
 ##### TARGET POSITIONS AND ORIENTATIONS #####
 
 # stage 0 (starting) positions and orientations
-# TODO: Add random starting configurations within the quadrant
 # TODO: (future) Assign ids based on starting configurations
 
 min_x = 2
