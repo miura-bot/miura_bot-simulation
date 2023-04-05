@@ -162,14 +162,14 @@
     <visual>
       <origin rpy="0.0 0 0" xyz="0 -6 -5"/>
       <geometry>
-        <mesh filename="motor_tip.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
       </geometry>
       <material name="green"/>
     </visual>
     <collision>
       <origin rpy="0 0 0" xyz="0 -6 -5"/>
       <geometry>
-        <mesh filename="motor_tip.stl" scale="1.00 1.00 1.00"/>
+        <mesh filename="motor.stl" scale="1.00 1.00 1.00"/>
       </geometry>
     </collision>
     <inertial>
