@@ -23,8 +23,8 @@ botId = p.loadURDF(urdf, start_pos, start_orientation, globalScaling=0.01)
 #   print(p.getJointInfo(botId, i))
 
 # set up wheel sliders
-targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -100.0, 100.0, 0)
-targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -100.0, 100.0, 0)
+targetVelocitySlider = p.addUserDebugParameter("targetVelocity1", -2.0, 2.0, 0)
+targetVelocitySlider2 = p.addUserDebugParameter("targetVelocity2", -2.0, 2.0, 0)
 
 # run simulation
 while True:

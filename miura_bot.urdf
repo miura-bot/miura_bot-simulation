@@ -4,6 +4,9 @@
   <material name="blue">
     <color rgba = "0.0 0.0 1.0 1"/>
   </material>
+  <material name="green">
+    <color rgba = "0.0 1.0 0.0 1"/>
+  </material>
   <material name="red">
     <color rgba = "1.0 0.0 0.0 1.0"/>
   </material>
@@ -60,7 +63,7 @@
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
-      <material name="blue"/>
+      <material name="green"/>
     </visual>
     <collision>
       <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
@@ -108,7 +111,7 @@
       <geometry>
         <mesh filename="wheel.stl" scale="1.00 1.00 1.00"/>
       </geometry>
-      <material name="blue"/>
+      <material name="green"/>
     </visual>
     <collision>
       <origin rpy="0.0 0.0 0.0" xyz="-8.0 -2.0 -8.0"/>
