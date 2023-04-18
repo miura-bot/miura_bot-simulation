@@ -14,7 +14,7 @@
   <!-- base_link -->
   <link name="base_link">
     <visual>
-      <origin rpy="0.0 0 0" xyz="-70.9012 -112.5 -6.0"/>
+      <origin rpy="0 0 0" xyz="-70.9012 -112.5 -6.0"/>
       <geometry>
         <mesh filename="mori-design-2.stl" scale="1.00 1.00 1.00"/>
       </geometry>
@@ -53,7 +53,7 @@
     <parent link="base_link"/>
     <child link="wheel_1"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="-64.9519 -7.5 0"/>
+    <origin rpy="0 0 0" xyz="-64.9519 7.5 0"/>
   </joint>
 
   <!-- wheel_2 -->
@@ -77,7 +77,7 @@
     <parent link="base_link"/>
     <child link="wheel_2"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 -1.0472" xyz="-25.9808 -90.0 0"/>
+    <origin rpy="0 0 1.0472" xyz="25.9808 -90.0 0"/>
   </joint>
 
   <!-- wheel_3 -->
@@ -101,7 +101,7 @@
     <parent link="base_link"/>
     <child link="wheel_3"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 0" xyz="64.9519 7.5 0"/>
+    <origin rpy="0 0 0" xyz="64.9519 -7.5 0"/>
   </joint>
 
   <!-- wheel_4 -->
@@ -125,10 +125,10 @@
     <parent link="base_link"/>
     <child link="wheel_4"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 0 -1.0472" xyz="25.9808 90.0 0"/>
+    <origin rpy="0 0 1.0472" xyz="-25.9808 90.0 0"/>
   </joint>
 
-  <!-- motor1 -->
+   <!-- motor1 -->
   <link name="motor1">
     <visual>
       <origin rpy="0.0 0 0" xyz="0 -6 -5"/>
@@ -154,7 +154,7 @@
   <joint name="jointmotor1" type="fixed">
     <parent link="base_link"/>
     <child link="motor1"/>
-    <origin rpy="0 0 4.71238898038" xyz="-42.9519 2.5 0"/> 
+    <origin rpy="0 0 -4.71238898038" xyz="-42.9519 -2.5 0"/> 
   </joint>
 
   <!-- motor2 -->
@@ -183,7 +183,7 @@
   <joint name="jointmotor2" type="fixed">
     <parent link="base_link"/>
     <child link="motor2"/>
-    <origin rpy="0 0 1.57079632679" xyz="42.928097162 -2.5 0"/> 
+    <origin rpy="0 0 -1.57079632679" xyz="42.928097162 2.5 0"/> 
   </joint>
 
   <!-- motor3 -->
@@ -212,7 +212,7 @@
   <joint name="jointmotor3" type="fixed">
     <parent link="base_link"/>
     <child link="motor3"/>
-    <origin rpy="0 0 0.523598775598" xyz="-45.641 -75.9474 0"/> 
+    <origin rpy="0 0 2.61799387799" xyz="45.641 -75.9474 0"/> 
   </joint>
 
   <!-- motor4 -->
@@ -241,7 +241,7 @@
   <joint name="jointmotor4" type="fixed">
     <parent link="base_link"/>
     <child link="motor4"/>
-    <origin rpy="0 0 3.66519142919" xyz="45.641 75.9474 0"/> 
+    <origin rpy="0 0 -0.5235987756" xyz="-45.641 75.9474 0"/> 
   </joint> 
 
 </robot>
