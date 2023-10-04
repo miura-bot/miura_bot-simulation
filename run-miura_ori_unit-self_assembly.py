@@ -2,6 +2,7 @@ import numpy as np
 import pybullet as p
 import pybullet_data
 import time
+from scipy.spatial.transform import Rotation
 
 # set up client with GUI
 client = p.connect(p.GUI)
@@ -25,6 +26,8 @@ max_x = 6
 
 bot1_starting_pos = [np.random.uniform(min_x, max_x), np.random.uniform(min_x, max_x), 0.2]
 bot1_orientation = p.getQuaternionFromEuler([0., 0., np.random.uniform(0, 2*np.pi)])
+# bot1_starting_pos = np.add([-1.35*np.cos(np.radians(120)), 1.35*np.sin(np.radians(120)), 0.], [0, 0, 0])
+# bot1_orientation = p.getQuaternionFromEuler([0., 0., 0.])
 
 bot2_starting_pos = [-np.random.uniform(min_x, max_x), np.random.uniform(min_x, max_x), 0.2]
 bot2_orientation = p.getQuaternionFromEuler([0., 0., np.random.uniform(0, 2*np.pi)])
@@ -34,6 +37,8 @@ bot3_orientation = p.getQuaternionFromEuler([0., 0., np.random.uniform(0, 2*np.p
 
 bot4_starting_pos = [np.random.uniform(min_x, max_x), -np.random.uniform(min_x, max_x), 0.2]
 bot4_orientation = p.getQuaternionFromEuler([0., 0., np.random.uniform(0, 2*np.pi)])
+# bot4_starting_pos = [0, 0, 0]
+# bot4_orientation = p.getQuaternionFromEuler([0., 0., 0.])
 
 # stage 1 target positions and orientations
 
@@ -42,13 +47,13 @@ bot4_stage1_target_orientation_relative_bot3 = [0., 0., np.pi/3]
 
 # stage 2 target positions and orientations
 
-bot1_stage2_target_pos_relative_bot4 = np.add([-3*np.cos(np.radians(120)), 3*np.sin(np.radians(120)), 0.], [0, 1.65, 0.2])
+bot1_stage2_target_pos_relative_bot4 = np.add([-3*np.cos(np.radians(120)), 3*np.sin(np.radians(120)), 0.], [-1, 1.65, 0.2])
 bot1_stage2_target_orientation_relative_bot4 = [0., 0., 0.]
-bot1_stage2_1_target_pos_relative_bot4 = np.add([-1.35*np.cos(np.radians(120)), 1.35*np.sin(np.radians(120)), 0.], [0, 1.65, 0.2])
+bot1_stage2_1_target_pos_relative_bot4 = np.add([-1.35*np.cos(np.radians(120)), 1.35*np.sin(np.radians(120)), 0.], [-0.675, 0.5, 0])
 
 bot2_stage2_target_pos_relative_bot3 = np.add([-3*np.cos(np.radians(60)), 3*np.sin(np.radians(60)), 0.], [0, 1.65, 0.2])
 bot2_stage2_target_orientation_relative_bot3 = [0., 0., 0.]
-bot2_stage2_1_target_pos_relative_bot3 = np.add([-1.35*np.cos(np.radians(60)), 1.35*np.sin(np.radians(60)), 0.], [0, 1.65, 0.2])
+bot2_stage2_1_target_pos_relative_bot3 = np.add([-1.35*np.cos(np.radians(60)), 1.35*np.sin(np.radians(60)), 0.], [0.675, 0.5, 0])
 
 # stage 3 target positions and orientations
 
@@ -60,42 +65,44 @@ bot4_stage3_target_orientation_relative_bot3 = p.getQuaternionFromEuler([0., 0.,
 
 ##### MOVEMENT HELPER FUNCTIONS #####
 
-# TODO: FIX SCALING
-def vector_translation(botA_id, botB_id, botA_target_pos_relative_botB, atol=0.1):
+v1_vector = np.array([1.0, 0.0, 0.0]).reshape(3, 1)
+v2_vector = np.array([-0.5, np.sqrt(3)/2.0, 0.0]).reshape(3, 1)
+
+def vector_translation(botA_id, botB_id, botA_target_pos_relative_botB, atol=0.2):
     
     botA_pos, botA_orientation = p.getBasePositionAndOrientation(botA_id, physicsClientId=client)
-    botA_orientation = p.getEulerFromQuaternion(botA_orientation)
     botB_pos, botB_orientation = p.getBasePositionAndOrientation(botB_id, physicsClientId=client)
-    botB_orientation = p.getEulerFromQuaternion(botB_orientation)
     if not np.isclose(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos, atol=atol).all():
         
         p.addUserDebugLine(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos, lifeTime=3, lineColorRGB=[1, 0, 0])
 
-        vector = np.subtract(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos)
+        vector_to_follow = np.subtract(np.add(botB_pos, botA_target_pos_relative_botB), botA_pos)
+        rotmat = Rotation.from_quat(botA_orientation).as_matrix()
+        
+        robot_coor = rotmat@np.eye(3)
+        s1 = vector_to_follow@(robot_coor[:, 0]*2.0) * 5
+        s2 = vector_to_follow@(robot_coor[:, 1]*2.0) * 5
 
-        vector_rotation_angle = -botA_orientation[2]
-        vector_rotation_matrix = np.array([[np.cos(vector_rotation_angle), -np.sin(vector_rotation_angle), 0],
-                                [np.sin(vector_rotation_angle), np.cos(vector_rotation_angle), 0],
-                                [0, 0, 1]])
-        vector = np.dot(vector_rotation_matrix, vector)
+        threshold_value = 2.0
+        if abs(s1) < threshold_value and abs(s2) < threshold_value:
+            scale_value = min(abs(threshold_value/s1), abs(threshold_value/s2))
+            s1 *= scale_value
+            s2 *= scale_value
 
+        p.addUserDebugLine([0.0, 0.0, 0.0], v1_vector * s1, lifeTime=3, lineColorRGB=[0, 0, 1], parentObjectUniqueId=botA_id)
+        p.addUserDebugLine([0.0, 0.0, 0.0], v2_vector * s2, lifeTime=3, lineColorRGB=[0, 1, 0], parentObjectUniqueId=botA_id)
 
-        s1 = vector[1] + (np.sqrt(3)/3.) * vector[0] * 10 * 1.75
-        s2 = 2.*np.sqrt(3)/3. * vector[0] * 10 * -1
-        if abs(s1) < 1 or abs(s2) < 1:
-            s1 *= 5
-            s2 *= 5
         print("vector_translation", s1, s2)
 
         p.setJointMotorControlArray(bodyIndex=botA_id, 
                                     jointIndices=[0, 2], 
                                     controlMode=p.VELOCITY_CONTROL, 
-                                    targetVelocities = [-s2, -s2])
+                                    targetVelocities = [s1, s1])
         
         p.setJointMotorControlArray(bodyIndex=botA_id, 
                                     jointIndices=[1, 3], 
                                     controlMode=p.VELOCITY_CONTROL, 
-                                    targetVelocities = [-s1, -s1])
+                                    targetVelocities = [-s2, -s2])
         
         return False
     else:
@@ -139,13 +146,14 @@ def rotation(botA_id, botB_id, botA_target_orientation_relative_botB, atol=np.ra
     if not np.isclose(np.add(botB_orientation, botA_target_orientation_relative_botB), botA_orientation, atol=atol).all():
 
         yaw_diff = np.subtract(np.add(botB_orientation, botA_target_orientation_relative_botB), botA_orientation)[2]
-        min_abs_velocity = 10
+        min_abs_velocity = 20
         if (yaw_diff < 0):
-            targetVelocity = min(-10 * abs(yaw_diff), min_abs_velocity)
+            targetVelocity = min(-10 * abs(yaw_diff), -min_abs_velocity)
         else:
             targetVelocity = max(10 * abs(yaw_diff), min_abs_velocity)
+        print(yaw_diff, targetVelocity)
 
-        print("rotation", botA_orientation, np.add(botB_orientation, botA_target_orientation_relative_botB), targetVelocity)
+        # print("rotation", botA_orientation, np.add(botB_orientation, botA_target_orientation_relative_botB), targetVelocity)
 
         p.setJointMotorControlArray(bodyIndex=botA_id, 
                                     jointIndices=[1, 3], 
@@ -188,11 +196,11 @@ vector_translation_complete_2b1 = False
 vector_translation_complete_3a = False
 while True:
     if stage == 0:
-        print("Stage %d: alligning quadrant 4 parallelogram to quadrant 3 parallelogram" % stage)
+        # print("Stage %d: alligning quadrant 4 parallelogram to quadrant 3 parallelogram" % stage)
 
         if not vector_translation_complete_1a:
-            vector_translation_complete_1a = vector_translation(bot4_id, bot3_id, bot4_stage1_target_pos_relative_bot3, atol=0.05)
-        elif not rotation_complete_1a or not vector_rotation_complete_1b:
+            vector_translation_complete_1a = vector_translation(bot4_id, bot3_id, bot4_stage1_target_pos_relative_bot3)
+        elif not rotation_complete_1a:
             # TODO: change this to be relative to bot3 rather than absolute to the world
             rotation_complete_1a = rotation(bot4_id, None, bot4_stage1_target_orientation_relative_bot3)
 
@@ -203,7 +211,7 @@ while True:
         if vector_translation_complete_1a and rotation_complete_1a and vector_rotation_complete_1b:
             stage = 1
     elif stage == 1:
-        print("Stage %d: alligning top quadrant parallelograms with bottom quadrant parallelograms" % stage)
+        # print("Stage %d: alligning top quadrant parallelograms with bottom quadrant parallelograms" % stage)
         # TODO: parallelize this with the previous step
 
         if not vector_translation_complete_2a:
@@ -225,7 +233,7 @@ while True:
         if vector_translation_complete_2a and rotation_complete_2a and vector_translation_complete_2b and rotation_complete_2b and vector_translation_complete_2a1 and vector_translation_complete_2b1:
             stage = 2
     elif stage == 2:
-        print("Stage %d: aligning right quadrant parallelograms (coupled) with left quadrant parallelograms (coupled)" % stage)
+        # print("Stage %d: aligning right quadrant parallelograms (coupled) with left quadrant parallelograms (coupled)" % stage)
 
         if not vector_translation_complete_3a:
             vector_translation_complete_3a_top = vector_translation(bot1_id, bot2_id, bot1_stage3_target_pos_relative_bot2)
